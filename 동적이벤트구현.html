@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<head>
+<style>
+
+</style>
+<script>
+    // body 태그에 하드코딩하지 않고, 프로그래밍 적으로 버튼을 생성하여
+    // 클릭 이벤트까지 부여해보자!!
+function createBtn(){
+    for(var i=0; i<5; i++){
+        var btn = document.createElement("button"); //버튼 생성!!
+        btn.innerText="나 "+i+"번쨰 버튼";
+        // body에 부착하자!!
+        btn.addEventListener("click",function(){
+        alert(this.innerText);
+        this.style.background="yellow";
+        });
+
+      document.body.appendChild(btn);
+    }
+
+}
+function setValue(){
+    // 문서내에 있는 버튼의 제목을 왕버튼으로 바꾸자
+  var bt = document.getElementById("bt");
+  bt.innerText="왕버튼";
+  
+}
+</script>
+</head>
+<body onLoad="createBtn()">
+    <button id="bt" onclick="this.innerText='왕버튼'">나버튼</button>
+</body>
+</html>

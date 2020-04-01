@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+<style>
+h1{
+    display: inline-block;
+}
+</style>
+<script>
+var h=0; //시간을 누적할 전역변수
+var m=0; //분을 누적할 전역변수
+var s=0; //초를 누적할 전역변수
+function watch(){
+    // test(); //빠르지만 않다면.. 해볼만하다
+    // 멈추지 않는 프로그램을 만들수 있다!!
+    // setTimeout("test()",1000); 한번만호출
+   var sec = document.getElementById("sec");
+   var min = document.getElementById("min");
+   var hour = document.getElementById("hour")
+   s++;
+   if(s==60){
+       s=0;
+       m++;
+       if(m==60){
+           m=0;
+           h++;
+       }
+   }
+   sec.innerText=s+"초"; 
+   min.innerText=m+"분";
+   hour.innerText=h+"시간";
+}
+function start(){
+    setInterval("watch()",10); //끝없이 호출!!
+}
+</script>
+</head>
+<body>
+    <button onclick="start()">start!</button>
+    <h1 id="hour">1시간</h1>
+    <h1 id="min">35분</h1>
+    <h1 id="sec">20초</h1>
+</body>
+</html>

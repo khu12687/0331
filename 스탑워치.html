@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<head>
+<style>
+div, input{
+    font-size: 50pt;
+}
+input{
+    width: 120px;
+    background-color: yellow;
+    text-align: right;
+    color: tomato;
+    font-weight: bold;
+}
+</style>
+<script>
+var s=0;
+var h=0;
+var m=0;
+var flag= false;
+function start(){
+    if(flag ==true){
+        s++;
+    if(s>=60){
+        s=0;
+        m++;
+    }
+    if(m>=60){
+        m=0;
+        h++;
+    }
+    // 텍스트 박스에 증가된 변수 대입하기!!
+  var hour = document.querySelector("#hour");
+  var min = document.querySelector("#min");
+  var sec = document.querySelector("#sec");
+
+  hour.value=h;
+  min.value=m;
+  sec.value=s;
+    }
+    
+   
+
+
+//   s가 60에 도달하면, 다시0으로 초기화 시키고
+//  기존의 분을 1증가!!
+  
+}
+function init(){
+    // css의 셀렉터 표현식이 가능한 메서드
+    var bt = document.querySelector("button");
+    bt.addEventListener("click",function(){
+    flag =!flag;
+    });
+}   
+window.addEventListener("load",function(){
+    init();
+    setInterval("start()",100);
+})
+</script>
+</head>
+<body>
+    <div>
+        <input type = "text" id="hour" value="0">시
+        <input type = "text" id="min" value="0">분
+        <input type = "text" id="sec" value="0">초    
+    </div>
+    <button>start!!</button>
+</body>
+</html>

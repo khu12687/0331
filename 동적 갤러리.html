@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head></head>
+<style>
+/*
+block : 수평적으로 어떤 요소도 공존할수 없다!! 즉 아래줄로 블락시킴
+            자기 자신의 크기들 화면 끝까지 확보하기 때문에
+            ex) div, p, h
+inline : 자기 자신의 크기를 내용물(컨텐트)만큼만 확보하므로, 다른
+            요소와 공존할 수 있다. span
+            witdh,height 기본적으로 적용불가!! 해결책: inline-block 전환
+*/
+#wrapper{
+    margin: 0px; /*남는 여백을 좌우로 동일하게 할당.. 따라서 화면이가운데로*/
+    width: 500px;
+    height: 550px;
+    background: yellow;
+}
+#thumb{
+    width: 100%;
+    height: 100px;
+    background-color: yellowgreen;
+    overflow: auto; /*넘치는 컨텐츠는 스크롤로 처리*/
+    position: relative;
+}
+#detail{
+    width: 100%;
+    height: 450px;
+    background-color: aqua;
+    
+}
+</style>
+<script>
+// 문서가 로드되는 이벤트인 load 이벤트를 스크립트 코드로 구현
+// window 객체는 document 객체보다 상위의 객체이며 브라우저 창을 의미한다
+window.addEventListener("load",function(){
+    // alert("문서 로드했어?")
+        createImg();
+});
+
+// 이미지를 동적으로 생성하는 함수 선언
+function createImg(n){
+    for(var i=2; i<10; i++){
+        var img = document.createElement("img");
+        img.src="../images/i"+i+".png";
+        img.style.width=100+"px"; //이미지 너비 지정
+        img.style.height=100+"px";
+        // 포지션을 지정하자!!(다른 요소들에 영향을 받지 않기 위해)
+        // 자식요소의 포지션을 지정할 경우, 반드시 부무도 포지션을 명시해야한다
+
+        img.style.position="absolute"; //thumb을 기준으로 절대위
+        img.style.left=(i-2)*100+"px";
+
+        // 이미지에 마우스 올렸을때 이벤트 구현
+        img.addEventListener("mouseover",function(){
+            // 큰 이미지 나오게
+            var big = document.getElementById("big");
+            big.src =this.src;
+        });
+
+        // 이미지를 thumb div에 부착
+        var thumb = document.getElementById("thumb");
+        thumb.appendChild(img);
+    }
+}
+</script>
+<body>
+    <div id="wrapper">
+        <div id="thumb"></div>
+        <div id="detail">
+            <img id="big" src="../images/i2.png" width="100%" height="100%"/>
+         </div>
+    </div>
+</body>
+</html>

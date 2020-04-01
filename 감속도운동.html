@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<head>
+<style>
+body{
+    margin: 0px;
+}
+#pic{
+    width: 100px;
+}
+#container{
+    width: 100%;
+    height: 600px;
+    background-color: white;
+}
+</style>
+<script>
+//목표지점을 300픽셀로한다
+var targetX=300;
+var targetY=0; //피카추가 도달한 목표지점!!
+var a=0.1; //기울기!!
+var pic //모든 영역에서 접근할 수 있도록 전역변수화
+function init(){
+    // 피카츄의 left, top 속성을 프로그래밍적으로 얻어오려면
+    // css 선언만으로는 접근할 수 없고, 자바스크립트에서 포지션 값을 부여해야한다
+    pic = document.getElementById("pic");
+    pic.style.position="absolute";
+    pic.style.left=0+"px";
+    pic.style.top=100+"px";
+
+    // container div 에 대해 마우스 이벤트 구현하기!!
+    var container = document.getElementById("container");
+    container.addEventListener("mousemove",function(){
+        // alert("마우스 눌럿어");
+        targetX = event.clientX;
+        targetY = event.clientY;
+    });
+
+    auto();
+}
+function move(){
+    // pic.style.left=0+"px"; //프로그래밍적으로 포지션을 부여해야
+    // left 값을 자바스크립트에서 접근할 수 있다
+    // 피카츄의 위치는 = 기존 피카츄의 위치에서+
+    // alert(parseInt( pic.style.left)); 정수화 시키면 px문자가 사라짐
+    // 나의 위치 = 기존나의위치 + a*(목표지점-현재나의위치); //암기!!!!!!!
+    pic.style.left =parseFloat(pic.style.left) +a* (targetX-parseFloat(pic.style.left))+"px";
+    pic.style.top =parseFloat(pic.style.top) +a* (targetY-parseFloat(pic.style.top))+"px";
+
+}
+function auto(){
+    setInterval("move()",10);
+}
+</script>
+</head>
+<body onload="init()">
+    <div id="container">
+        <button onclick="move()">수동 야금야금 움직이기</button>
+        <button onclick="auto()">자동 야금야금 움직이기</button>
+        <img id="pic" src  = "../images/pi.png"/>
+    </div>
+</body>
+
+</html>

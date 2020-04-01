@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<head>
+    <style>
+        #wrapper {
+            width: 500px;
+            height: 390px;
+            background-color: aquamarine    ;
+            margin: auto;
+        }
+
+        #screen {
+            width: 100%;
+            height: 340px;
+            background-color: pink;
+            overflow: hidden;
+            /*슈렉 이미지를 담고있는 3500짜리 상자를 가림*/
+            position: relative;
+            /*박스떔에*/
+
+        }
+
+        #navi {
+            width: 100%;
+            ;
+            height: 50px;
+            /* background-color: blue; */
+            text-align: center;
+            /*div안쪽의 요소 가운데정렬*/
+        }
+
+        #navi,
+        span {
+            font-size: 25pt;
+        }
+
+        #box {
+            width: 3500px;
+            height: 340px;
+            background-color: black;
+            position: absolute;
+
+        }
+    </style>
+    <script>
+        var a = 0.1; //숫자가 클수록투박하다(많이 움직이니깐..)
+        var targetX = 0; //box div가 도달할 지점-(0,500,1000,1500...)
+        var box;
+        window.addEventListener("load", function () {
+            // alert("문서로드햇어!")
+            box = document.getElementById("box");
+            box.style.position = "absolute";
+            box.style.left = 0 + "px";
+            createNavi();
+            createImage(); // 슈렉 이미지를 동적으로 생성할 함수
+
+            setInterval(" move()", 10);
+        });
+        // img0.jpg --0
+        // img1.jpg --500 500씩증가
+        function createImage() {
+            for (var i = 0; i < 7; i++) {
+                var img = document.createElement("img");
+                img.src = "../images/shurek/img" + i + ".jpg";
+                img.style.position = "absolute";
+                img.style.left = i * 500 + "px";
+
+                box.appendChild(img); //박스에 이미지 부착!!
+
+
+            }
+        }
+        // navi div 안에 네비게이션 아이콘을 생성하여 부착!!(슈렉이미지만큼)
+        function createNavi() {
+            for (var i = 0; i < 7; i++) {
+                var span = document.createElement("span"); //inline 수평 존재가 가능
+                var navi = document.getElementById("navi");
+                span.innerText = "○";
+                span.id = i; //프로그래밍적으로 id 부여
+                navi.appendChild(span); //div에 span 부착!!
+                // 동적 click 이벤트 구현하기
+                span.addEventListener("click", function () {
+                    // alert(this.id+"번쨰 이미지 원해?");
+
+
+                    // box.style.left=-(500*this.id)+"px";
+                    // 부드러운 이펙트를 부여하는 애니메이션으로 처리..
+                    // 나의 위치는 = 현재나의 위치 + 계수*(목표지점-현나위)
+                    targetX = (500 * this.id);
+                });
+            }
+        }
+        function move() {
+            box.style.left = parseFloat(box.style.left) - a * (targetX+ parseFloat(box.style.left)) + "px";
+            console.log(box.style.left);
+
+        }
+    </script>
+</head>
+
+<body>
+    <!-- 위, 아래를 감쌀 컨테이너  -->
+    <div id="wrapper">
+        <div id="screen">
+            <div id="box">동적으로 슈렉 이미지 생성하여 붙일예정</div>
+        </div>
+        <div id="navi"></div>
+    </div>
+</body>
+
+</html>
